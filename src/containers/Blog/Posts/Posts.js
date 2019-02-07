@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import axios from "../../../axios";
 import Post from "../../../components/Post/Post";
@@ -30,12 +31,16 @@ class Posts extends Component {
     render(){
         let updatedPosts = <p style={{textAlign: "center"}}>Something went wrong!</p>
         if(!this.state.error){
-            updatedPosts = this.state.posts.slice(0,4).map(post => <Post 
-                key={post.id} 
-                title={post.title} 
-                author="Surya" 
-                clicked={() => this.postSelectHandler(post.id)}
-            />)
+            updatedPosts = this.state.posts.slice(0,4).map(post => {
+                return (
+                    <Link to={'/'+post.id} key={post.id}>
+                        <Post 
+                            title={post.title} 
+                            author="Surya" 
+                            clicked={() => this.postSelectHandler(post.id)}
+                        />
+                    </Link>)
+                })
         }
         return (
             <section className="Posts">
